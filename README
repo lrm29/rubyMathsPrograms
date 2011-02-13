@@ -1,3 +1,13 @@
+INSTALLATION INSTRUCTIONS FOR WINDOWS
+
+1) Download Ruby for Windows (Under 12MB) from:
+
+http://rubyforge.org/frs/download.php/73722/rubyinstaller-1.9.2-p136.exe
+
+2) Once it is installed, then download this source. The .rb files should be associated with ruby.exe in your Ruby/bin folder. If not, create the association.
+
+3) Double click on a file named *_executable.rb and enjoy!
+
 Laurence McGlashan
 lrm29@cam.ac.uk
 February 2011
