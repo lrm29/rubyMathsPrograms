@@ -1,6 +1,6 @@
-require 'matrix_decomposition_class.rb'
-require 'gauss_seidel_class.rb'
-require 'outputs_class.rb'
+require './matrix_decomposition_class.rb'
+require './gauss_seidel_class.rb'
+require './outputs_class.rb'
 
 outputs = Outputs.new
 outputs.printHeader
