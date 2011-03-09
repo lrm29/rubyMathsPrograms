@@ -1,42 +1,44 @@
-require 'matrix.rb'
+require 'matrix_decomposition_class.rb'
+require 'gauss_seidel_class.rb'
+require 'outputs_class.rb'
 
-class Matrix
+outputs = Outputs.new
+outputs.printHeader
 
-  # Assign the given value to the slot at the specified row and column
-  def []=(row, column, value)
-    @rows[row][column] = value
-  end
+# Input matrix.
+matrix = Matrix[
+  [1.0,1.0,1.0],
+  [1.0,3.0,3.0],
+  [1.0,3.0,5.0]
+]
 
-  def to_s
-    [sprintf("%d x %d Matrix", @rows.length, column_size),
-      @rows.map { |row| row.inspect }].flatten.join("\n")
-  end
+# Right hand side of the linear system.
+lrhs = Matrix[[2.0],[0.0],[2.0]]
 
-end
+outputs["Input Matrix:"]
+outputs[matrix]
 
-matrix = Matrix[[1, 1, 1],[1, 1, 3],[1, 3, 5]]
-L = Matrix.zero(3)
-U = Matrix.zero(3)
+# Create the LU decomposition class, giving it the input matrix.
+lu = LU.new(matrix)
+# Create the gauss seidel solver
+gs = GaussSeidel.new
 
-puts "Input Matrix:"
-puts matrix
+outputs["\nOutput Matrix L:"]
+outputs[lu.L]
+outputs["\nOutput Matrix U:"]
+outputs[lu.U]
 
-n = (matrix.row_size())-1
+# Solve L.f = b 
+urhs = gs.solve(lu.L,lrhs,10)
+# Solve U.x = f
+solution = gs.solve(lu.U,urhs,10)
 
-for k in 0..(n-1)
-    for x in (k+1)..n
-        #L[x,k]=matrix[x,k]/matrix[k,k]
-        matrix[x,k]=matrix[x,k]/matrix[k,k]
-    end
-    for i in (k+1)..n
-        for j in (k+1)..n
-            #U[i,k]=matrix[i,j]-matrix[i,k]*matrix[k,j]
-            matrix[i,k]=matrix[i,j]-matrix[i,k]*matrix[k,j]
-        end
-    end
-end
 
-puts matrix
+outputs["\nThe solution is: "]
+outputs[solution]
 
-print "\nHit <Enter> to Exit."
-STDIN.gets
+# Output the number of operations for the decomposition.
+outputs["\nNumber of operations to decompose the matrix = #{lu.count}"]
+
+# Exit. Waits for keyboard input.
+outputs.exit
