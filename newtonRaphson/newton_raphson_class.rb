@@ -1,6 +1,6 @@
 class NR_squareroot
 
-    attr_reader :rubyRootx, :standardRootx, :secantRootx
+    attr_reader :rubyRootx, :standardRootx, :inverseRootx, :secantRootx
 
     def initialize(number, x0, nsteps)
         @number = number
@@ -19,6 +19,14 @@ class NR_squareroot
         for n in 0..@nsteps do
             @standardRootx = 0.5*(@standardRootx + @number/@standardRootx)
         end
+    end
+
+    def inverse
+        @inverseRootx = @x0
+        for n in 0..@nsteps do
+            @inverseRootx = 0.5*@inverseRootx*(3.0 - @number*@inverseRootx*@inverseRootx)
+        end
+        @inverseRootx = 1.0/@inverseRootx
     end
 
     def secantMethod
