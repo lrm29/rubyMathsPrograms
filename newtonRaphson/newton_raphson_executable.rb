@@ -20,9 +20,9 @@ Benchmark.bm(30) do |x|
   x.report("Secant Method") {nrsq.secantMethod}
 end
 
-puts "Ruby Root = #{nrsq.rubyRootx}"
-puts "Standard Root = #{nrsq.standardRootx}"
-puts "Inverse Root = #{nrsq.inverseRootx}"
+puts "Ruby Root        = #{nrsq.rubyRootx}"
+puts "Standard Root    = #{nrsq.standardRootx}"
+puts "Inverse Root     = #{nrsq.inverseRootx}"
 puts "Root From Secant = #{nrsq.secantRootx}"
 
 puts "\nThe Inverse method should be faster than the Standard method!"
